@@ -1,0 +1,5 @@
+.netlify
+data/
+__pycache__/
+*.py[cod]
+.venv/
