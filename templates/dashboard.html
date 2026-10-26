@@ -46,6 +46,8 @@
         <h1 id="viewTitle" data-i18n="nav_dashboard">داشبورد</h1>
       </div>
       <div class="topbar-actions">
+        <button class="command-trigger" id="commandTrigger" type="button" aria-label="Open command palette"><span>⌕</span><span data-i18n="command_search">جستجو و فرمان</span><kbd>Ctrl K</kbd></button>
+        <div class="system-live" id="systemLive"><i></i><span data-i18n="system_live">سامانه فعال</span><time id="liveClock">--:--</time></div>
         <div class="lang-toggle">
           <button type="button" data-lang="fa">FA</button>
           <button type="button" data-lang="en">EN</button>
@@ -59,6 +61,25 @@
 
       <!-- ============ DASHBOARD VIEW ============ -->
       <section class="view active" id="view-dashboard">
+        <section class="dashboard-hero" aria-label="Server overview">
+          <div class="hero-copy">
+            <div class="hero-eyebrow"><span class="hero-pulse"></span><span data-i18n="hero_eyebrow">اتاق فرمان StanNG</span><span class="hero-divider"></span><span id="heroDate">—</span></div>
+            <h2><span data-i18n="hero_title_start">زیرساختت،</span> <em data-i18n="hero_title_end">در یک نگاه</em></h2>
+            <p data-i18n="hero_subtitle">وضعیت سرور و کاربران را زنده ببین؛ کارهای روزمره را با چند کلیک انجام بده.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="heroAddUser"><svg><use href="#icon-plus"/></svg><span data-i18n="hero_add_user">ساخت کاربر</span></button>
+              <button class="btn btn-glass" id="heroViewUsers"><svg><use href="#icon-users"/></svg><span data-i18n="hero_view_users">مدیریت کاربران</span></button>
+              <button class="hero-shortcut" id="heroCommand"><kbd>Ctrl K</kbd><span data-i18n="hero_shortcut">فرمان سریع</span></button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="orb-halo halo-one"></div><div class="orb-halo halo-two"></div>
+            <div class="orb-core"><div class="orb-inner"><span>ST</span></div></div>
+            <div class="orbit orbit-a"><i></i></div><div class="orbit orbit-b"><i></i></div>
+            <div class="orb-chip chip-top"><span class="chip-dot"></span> XRAY <b>LIVE</b></div>
+            <div class="orb-chip chip-bottom"><svg><use href="#icon-shield"/></svg> SECURE NODE</div>
+          </div>
+        </section>
         <div class="grid mb-16">
           <div class="col-3 win stat-card">
             <div class="label"><svg><use href="#icon-cpu"/></svg><span data-i18n="dash_cpu">پردازنده</span></div>
@@ -129,6 +150,7 @@
                 <svg class="input-icon" width="16" height="16"><use href="#icon-search"/></svg>
                 <input class="input" style="padding:8px 10px 8px 36px; font-size:13px;" id="inboundSearch" data-i18n-placeholder="search_placeholder" placeholder="جستجوی کاربر...">
               </div>
+              <button class="btn btn-ghost btn-sm" id="exportUsersBtn" title="Export CSV"><svg width="16" height="16"><use href="#icon-download"/></svg><span data-i18n="export_csv">خروجی CSV</span></button>
               <button class="btn btn-emerald btn-sm" id="addInboundBtn"><svg width="16" height="16"><use href="#icon-plus"/></svg><span data-i18n="inb_add">کاربر جدید</span></button>
             </div>
           </div>
@@ -305,6 +327,24 @@
 
     </main>
   </div>
+</div>
+
+<div class="command-overlay" id="commandOverlay" aria-hidden="true">
+  <div class="command-backdrop" data-command-close></div>
+  <section class="command-panel" role="dialog" aria-modal="true" aria-labelledby="commandTitle">
+    <div class="command-search-row"><svg><use href="#icon-search"/></svg><input id="commandInput" type="text" autocomplete="off" placeholder="جستجوی صفحه یا فرمان..." data-i18n-placeholder="command_placeholder"><kbd>ESC</kbd></div>
+    <div class="command-caption" id="commandTitle" data-i18n="command_caption">دسترسی سریع</div>
+    <div class="command-list" id="commandList">
+      <button class="command-option" data-command="dashboard"><span class="command-icon"><svg><use href="#icon-dashboard"/></svg></span><span data-i18n="nav_dashboard">داشبورد</span><kbd>1</kbd></button>
+      <button class="command-option" data-command="inbounds"><span class="command-icon"><svg><use href="#icon-users"/></svg></span><span data-i18n="nav_inbounds">کاربران</span><kbd>2</kbd></button>
+      <button class="command-option" data-command="traffic"><span class="command-icon"><svg><use href="#icon-traffic"/></svg></span><span data-i18n="nav_traffic">ترافیک</span><kbd>3</kbd></button>
+      <button class="command-option" data-command="security"><span class="command-icon"><svg><use href="#icon-shield"/></svg></span><span data-i18n="nav_security">امنیت</span><kbd>4</kbd></button>
+      <button class="command-option" data-command="settings"><span class="command-icon"><svg><use href="#icon-settings"/></svg></span><span data-i18n="nav_settings">تنظیمات</span><kbd>5</kbd></button>
+      <button class="command-option" data-command="add"><span class="command-icon command-icon-accent"><svg><use href="#icon-plus"/></svg></span><span data-i18n="hero_add_user">ساخت کاربر</span><kbd>↵</kbd></button>
+      <button class="command-option" data-command="export"><span class="command-icon"><svg><use href="#icon-download"/></svg></span><span data-i18n="export_csv">خروجی CSV</span><kbd>↵</kbd></button>
+    </div>
+    <footer class="command-footer"><span><kbd>↑</kbd> <kbd>↓</kbd> <span data-i18n="command_navigate">حرکت</span></span><span><kbd>↵</kbd> <span data-i18n="command_open">اجرا</span></span><span><kbd>ESC</kbd> <span data-i18n="command_close">بستن</span></span></footer>
+  </section>
 </div>
 
 <!-- ============ MODAL: Add/Edit Inbound ============ -->
