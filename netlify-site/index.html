@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a14">
+  <meta name="description" content="StanNG secure control panel gateway">
+  <title>StanNG · Control Gateway</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090a14;--panel:#111321;--line:rgba(178,164,255,.17);--text:#f3f0ff;--muted:#9f9bb4;--violet:#a48bff;--mint:#62e3bf;font-family:Inter,"Segoe UI",Tahoma,sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(ellipse at 15% 15%,rgba(117,78,232,.17),transparent 34%),radial-gradient(ellipse at 90% 80%,rgba(44,188,165,.1),transparent 30%),var(--bg);display:grid;place-items:center;padding:24px;overflow:hidden}.grid{position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:linear-gradient(rgba(176,162,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(176,162,255,.18) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at 50% 45%,black,transparent 78%)}.card{position:relative;width:min(940px,100%);min-height:460px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:28px;padding:clamp(28px,6vw,64px);border:1px solid var(--line);border-radius:30px;background:linear-gradient(140deg,rgba(255,255,255,.055),rgba(255,255,255,.014)),rgba(17,19,33,.82);box-shadow:0 40px 110px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(18px);transform:perspective(1400px) rotateX(1deg)}.copy{position:relative;z-index:2}.eyebrow{display:flex;align-items:center;gap:10px;color:#b1abc8;font-size:11px;letter-spacing:.12em}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 15px var(--mint)}h1{font-size:clamp(34px,5vw,55px);line-height:1.15;letter-spacing:-.045em;margin:22px 0 14px}h1 em{font-style:normal;color:var(--violet);text-shadow:0 0 24px rgba(164,139,255,.25)}p{font-size:14px;line-height:1.9;color:var(--muted);max-width:510px;margin:0 0 24px}.status{display:flex;align-items:center;gap:9px;color:#d3caff;font-size:12px;margin:0 0 12px}.status:before{content:"";width:7px;height:7px;border-radius:50%;background:#f2bd6a;box-shadow:0 0 12px rgba(242,189,106,.45)}form{display:flex;gap:9px;max-width:510px}.url{height:49px;flex:1;min-width:0;padding:0 15px;color:var(--text);background:rgba(6,8,17,.7);border:1px solid var(--line);border-radius:12px;outline:none;font:inherit;font-size:13px;direction:ltr;text-align:left}.url:focus{border-color:rgba(164,139,255,.7);box-shadow:0 0 0 3px rgba(164,139,255,.12)}button{border:0;border-radius:12px;padding:0 18px;white-space:nowrap;color:#100e20;background:linear-gradient(135deg,#c4b3ff,#8d74ef);font:700 13px Inter,"Segoe UI",Tahoma,sans-serif;cursor:pointer;box-shadow:0 9px 25px rgba(115,83,224,.25);transition:transform .2s,filter .2s}button:hover{transform:translateY(-2px);filter:brightness(1.08)}button:focus-visible{outline:2px solid white;outline-offset:3px}.help{font-size:11px;color:#79758d;margin-top:11px}.error{min-height:18px;margin-top:7px;font-size:11px;color:#ff9da6}.visual{position:relative;height:300px;display:grid;place-items:center;perspective:900px}.glow{position:absolute;width:245px;height:245px;border-radius:50%;background:radial-gradient(circle,rgba(134,99,255,.28),transparent 68%);filter:blur(4px)}.orb{position:relative;width:154px;height:154px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 31% 25%,#f2edff 0,#bdacff 7%,#8063e8 26%,#392e81 54%,#17152f 78%);box-shadow:inset -18px -20px 34px rgba(3,3,17,.75),inset 7px 7px 17px rgba(255,255,255,.5),0 0 54px rgba(144,109,255,.65),0 0 120px rgba(123,93,241,.22);animation:float 5s ease-in-out infinite;transform:translateZ(40px)}.core{width:61px;height:61px;border-radius:50%;display:grid;place-items:center;color:white;font:bold 20px Georgia,serif;letter-spacing:.08em;background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.48);box-shadow:inset 0 2px 9px rgba(255,255,255,.36),0 8px 24px rgba(10,7,46,.35);backdrop-filter:blur(9px)}.ring{position:absolute;width:260px;height:90px;border:1px solid rgba(178,160,255,.43);border-radius:50%;transform:rotate(-31deg)}.ring.r2{width:224px;height:74px;transform:rotate(54deg);border-color:rgba(98,227,191,.4)}.ring:after{content:"";position:absolute;width:8px;height:8px;right:14%;top:3px;border-radius:50%;background:#b09aff;box-shadow:0 0 13px #b09aff}.ring.r2:after{right:auto;left:13%;top:auto;bottom:3px;background:var(--mint);box-shadow:0 0 13px var(--mint)}.chip{position:absolute;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:rgba(13,14,29,.75);backdrop-filter:blur(12px);font-size:9px;letter-spacing:.1em;color:#d1cae8}.chip.top{top:38px;right:0}.chip.bottom{bottom:43px;left:0}.chip b{color:var(--mint);margin-inline-start:6px}.foot{position:absolute;inset-inline:clamp(28px,6vw,64px);bottom:20px;display:flex;justify-content:space-between;gap:12px;color:#66637a;font-size:10px}.lang{position:absolute;top:22px;inset-inline-end:25px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#d7d1ea;padding:7px 10px;border-radius:8px;font-size:10px}.lang:hover{transform:none}@keyframes float{50%{transform:translateY(-9px) rotate(4deg) translateZ(40px)}}
+    @media(max-width:700px){body{padding:13px}.card{grid-template-columns:1fr;gap:0;min-height:0;padding:58px 25px 55px;border-radius:22px}.visual{position:absolute;inset-inline-end:-105px;top:15px;width:250px;height:240px;opacity:.25;pointer-events:none;transform:scale(.8)}.copy{max-width:100%}p{max-width:100%}form{flex-direction:column}.url,button{height:48px;width:100%}.foot{bottom:14px;font-size:9px}.lang{top:13px;inset-inline-end:14px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.card{transform:none}}
+  </style>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <main class="card">
+    <button class="lang" id="lang" type="button">EN</button>
+    <section class="copy">
+      <div class="eyebrow"><span class="dot"></span><span data-fa="دروازهٔ امن StanNG" data-en="STANNG SECURE GATEWAY">دروازهٔ امن StanNG</span></div>
+      <h1><span data-fa="کنترل پنل،" data-en="Your control panel,">کنترل پنل،</span><br><em data-fa="در دسترس تو" data-en="within reach">در دسترس تو</em></h1>
+      <p data-fa="این درگاه روی Netlify میزبانی می‌شود. برای ورود به پنل، نشانی HTTPS بک‌اند خود را وارد کن؛ ارتباط و نشست ورود روی دامنهٔ خود بک‌اند باقی می‌ماند." data-en="This gateway is hosted on Netlify. Enter your backend's HTTPS address to open the control panel; sign-in and session remain on your backend domain.">این درگاه روی Netlify میزبانی می‌شود. برای ورود به پنل، نشانی HTTPS بک‌اند خود را وارد کن؛ ارتباط و نشست ورود روی دامنهٔ خود بک‌اند باقی می‌ماند.</p>
+      <div class="status" id="status" data-fa="بک‌اند هنوز وصل نشده است" data-en="Backend is not connected yet">بک‌اند هنوز وصل نشده است</div>
+      <form id="connectForm">
+        <input class="url" id="backendUrl" type="url" placeholder="https://your-backend.example.com" aria-label="Backend HTTPS URL" autocomplete="url" required>
+        <button id="connectButton" type="submit" data-fa="اتصال به پنل" data-en="Open panel">اتصال به پنل</button>
+      </form>
+      <div class="help" data-fa="نشانی فقط در همین مرورگر ذخیره می‌شود. از وارد کردن رمز یا توکن در URL خودداری کن." data-en="The address is saved only in this browser. Never put a password or token in the URL.">نشانی فقط در همین مرورگر ذخیره می‌شود. از وارد کردن رمز یا توکن در URL خودداری کن.</div>
+      <div class="error" id="error" role="status" aria-live="polite"></div>
+    </section>
+    <div class="visual" aria-hidden="true"><div class="glow"></div><div class="ring"></div><div class="ring r2"></div><div class="orb"><div class="core">ST</div></div><div class="chip top">XRAY <b>READY</b></div><div class="chip bottom">SECURE NODE</div></div>
+    <footer class="foot"><span>STANNG · NETWORK CONTROL</span><span>EDGE GATEWAY / NETLIFY</span></footer>
+  </main>
+  <script>
+    (() => {
+      const input=document.getElementById('backendUrl'), error=document.getElementById('error'), status=document.getElementById('status');
+      const saved=localStorage.getItem('stanng_backend_url'); if(saved) input.value=saved;
+      const langButton=document.getElementById('lang');
+      function setLang(lang){document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';document.querySelectorAll('[data-fa][data-en]').forEach(el=>el.textContent=el.dataset[lang]);langButton.textContent=lang==='fa'?'EN':'FA';localStorage.setItem('stanng_gateway_lang',lang)}
+      setLang(localStorage.getItem('stanng_gateway_lang')||'fa');
+      langButton.addEventListener('click',()=>setLang(document.documentElement.lang==='fa'?'en':'fa'));
+      document.getElementById('connectForm').addEventListener('submit',event=>{
+        event.preventDefault();error.textContent='';
+        let url;try{url=new URL(input.value.trim())}catch{error.textContent=document.documentElement.lang==='fa'?'نشانی واردشده معتبر نیست.':'Enter a valid URL.';return}
+        if(url.protocol!=='https:'&&!(url.protocol==='http:'&&['localhost','127.0.0.1'].includes(url.hostname))){error.textContent=document.documentElement.lang==='fa'?'برای اتصال امن، نشانی باید HTTPS باشد.':'Use HTTPS for a secure connection.';return}
+        if(url.username||url.password||url.search||url.hash){error.textContent=document.documentElement.lang==='fa'?'نشانی نباید اطلاعات ورود، query یا fragment داشته باشد.':'The URL cannot contain credentials, a query, or a fragment.';return}
+        const target=url.origin+url.pathname.replace(/\/$/,'');localStorage.setItem('stanng_backend_url',target);location.assign(target+'/');
+      });
+    })();
+  </script>
+</body>
+</html>

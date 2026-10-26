@@ -69,6 +69,97 @@
       STANNG.playSfx('toggle', 0.3);
     });
   });
+
+  // ---------------- command palette & productivity tools ----------------
+  const commandOverlay = document.getElementById('commandOverlay');
+  const commandInput = document.getElementById('commandInput');
+  const commandOptions = [...document.querySelectorAll('.command-option')];
+  function openCommandPalette() {
+    commandOverlay.classList.add('open');
+    commandOverlay.setAttribute('aria-hidden', 'false');
+    commandInput.value = '';
+    filterCommands('');
+    requestAnimationFrame(() => commandInput.focus());
+  }
+  function closeCommandPalette() {
+    commandOverlay.classList.remove('open');
+    commandOverlay.setAttribute('aria-hidden', 'true');
+    document.getElementById('commandTrigger').focus();
+  }
+  function filterCommands(query) {
+    const needle = query.trim().toLocaleLowerCase();
+    commandOptions.forEach(option => {
+      option.hidden = needle && !option.textContent.toLocaleLowerCase().includes(needle);
+    });
+    const first = commandOptions.find(option => !option.hidden);
+    commandOptions.forEach(option => option.classList.remove('selected'));
+    if (first) first.classList.add('selected');
+  }
+  function runCommand(command) {
+    closeCommandPalette();
+    if (['dashboard', 'inbounds', 'traffic', 'security', 'settings'].includes(command)) showView(command);
+    if (command === 'add') { showView('inbounds'); openInboundModal(); }
+    if (command === 'export') exportUsersCsv();
+  }
+  document.getElementById('commandTrigger').addEventListener('click', openCommandPalette);
+  document.getElementById('heroCommand').addEventListener('click', openCommandPalette);
+  commandInput.addEventListener('input', () => filterCommands(commandInput.value));
+  commandOptions.forEach(option => option.addEventListener('click', () => runCommand(option.dataset.command)));
+  commandOverlay.querySelectorAll('[data-command-close]').forEach(el => el.addEventListener('click', closeCommandPalette));
+  commandInput.addEventListener('keydown', e => {
+    const visible = commandOptions.filter(option => !option.hidden);
+    const selected = visible.indexOf(commandOptions.find(option => option.classList.contains('selected')));
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const next = (selected + (e.key === 'ArrowDown' ? 1 : visible.length - 1)) % visible.length;
+      commandOptions.forEach(option => option.classList.remove('selected'));
+      visible[next]?.classList.add('selected');
+      visible[next]?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && visible.length) {
+      e.preventDefault();
+      (visible[selected < 0 ? 0 : selected]).click();
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCommandPalette(); }
+    if (e.key === 'Escape' && commandOverlay.classList.contains('open')) closeCommandPalette();
+  });
+  document.getElementById('heroAddUser').addEventListener('click', () => { showView('inbounds'); openInboundModal(); });
+  document.getElementById('heroViewUsers').addEventListener('click', () => showView('inbounds'));
+
+  function exportUsersCsv() {
+    if (!currentInbounds.length) { STANNG.toast(STANNG.t('inb_empty'), 'info'); return; }
+    const columns = [
+      ['name', 'Name'], ['enabled', 'Enabled'], ['used_up', 'Upload bytes'],
+      ['used_down', 'Download bytes'], ['quota_gb', 'Quota GB'],
+      ['expire_at', 'Expires (unix)'], ['max_connections', 'Max connections'], ['note', 'Note']
+    ];
+    const csvCell = value => {
+      const text = String(value ?? '');
+      const safe = /^[\t\r ]*[=+@-]/.test(text) ? `'${text}` : text;
+      return `"${safe.replace(/"/g, '""')}"`;
+    };
+    const rows = [columns.map(([, label]) => csvCell(label)).join(',')];
+    currentInbounds.forEach(ib => rows.push(columns.map(([key]) => csvCell(key === 'enabled' ? !!ib.status?.live_enabled : ib[key])).join(',')));
+    const blob = new Blob(['\ufeff' + rows.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `stanng-users-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    STANNG.toast(STANNG.t('export_done'), 'success');
+  }
+  document.getElementById('exportUsersBtn').addEventListener('click', exportUsersCsv);
+
+  function refreshHeroClock() {
+    const now = new Date();
+    const locale = STANNG.getLang() === 'fa' ? 'fa-IR' : 'en-US';
+    document.getElementById('liveClock').textContent = now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('heroDate').textContent = now.toLocaleDateString(locale, { weekday: 'long', month: 'short', day: 'numeric' });
+  }
+  refreshHeroClock();
+  setInterval(refreshHeroClock, 30000);
   document.getElementById('themeToggle').addEventListener('click', () => {
     STANNG.setTheme(STANNG.getTheme() === 'dark' ? 'light' : 'dark');
     STANNG.playSfx('toggle', 0.3);

@@ -1,0 +1,5 @@
+[build]
+  publish = "netlify-site"
+
+[context.production]
+  publish = "netlify-site"

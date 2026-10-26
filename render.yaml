@@ -1,13 +1,13 @@
 services:
   - type: web
-    name: stanng
-    env: python
+    name: stanng-api
+    runtime: docker
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
+    branch: feat/3d-modern-dashboard
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
-      - key: PORT
-        value: 8000
+      - key: PANEL_PORT
+        value: "18080"
     autoDeploy: true
