@@ -2,18 +2,12 @@ services:
   - type: web
     name: stanng-api
     runtime: docker
-    plan: 0.5c-512mb
+    plan: free
     branch: feat/3d-modern-dashboard
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /health
-    disk:
-      name: stanng-data
-      mountPath: /data
-      sizeGB: 1
     envVars:
-      - key: STANNG_DATA_DIR
-        value: /data
       - key: PANEL_PORT
         value: "18080"
     autoDeploy: true
