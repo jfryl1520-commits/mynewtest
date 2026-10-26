@@ -2,7 +2,7 @@ services:
   - type: web
     name: stanng-api
     runtime: docker
-    plan: starter
+    plan: 0.5c-512mb
     branch: feat/3d-modern-dashboard
     dockerfilePath: ./Dockerfile
     dockerContext: .
